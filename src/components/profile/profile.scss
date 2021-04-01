@@ -1,0 +1,14 @@
+.profile {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+
+  background-color: #0f1829;
+}
+
+.profile__img {
+  border-radius: 50%;
+}
