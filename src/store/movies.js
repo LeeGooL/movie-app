@@ -5,23 +5,36 @@ import { API_URL, API_KEY_3 } from "@constants/api";
 
 class Movies {
   movies = [];
-  moviesCount = this.movies.length;
+  moviesCount = 0;
   pagesCount = 0;
+  isLoaded = false;
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { deep: true });
   }
 
-  fetchMovies() {
+  get moviesTotal() {
+    return this.movies;
+  }
+
+  fetchMovies(currentPage) {
+    this.isLoaded = false;
+
     axios
       .get(`${API_URL}/discover/movie`, {
         params: {
           api_key: API_KEY_3,
           language: "en-US",
           limit: 18,
+          page: currentPage,
         },
       })
-      .then(({ data: { results } }) => (this.movies = results));
+      .then(({ data: { results, total_pages, total_results } }) => {
+        this.isLoaded = true;
+        this.movies = results;
+        this.moviesCount = total_results;
+        this.pagesCount = total_pages;
+      });
   }
 }
 

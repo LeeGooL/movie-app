@@ -50,8 +50,6 @@ a {
   text-decoration: none;
 }
 
-
-
 .movie-app__container {
   display: grid;
   width: 100vw;
@@ -60,9 +58,10 @@ a {
   font-family: "Roboto", sans-serif;
 
   grid-template-areas: "search search profile"
+  "filters bar bar"
   "filters movies movies";
   grid-template-columns: 15% 1fr 10%;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: 50px 110px 1fr;
 }
 
 .movie-app__search {
@@ -79,6 +78,10 @@ a {
           box-shadow: 4px 4px 8px 0 rgba(34, 60, 80, 0.2);
 
   grid-area: filters;
+}
+
+.movie-app__movies-bar {
+  grid-area: bar;
 }
 
 .movie-app__movies {

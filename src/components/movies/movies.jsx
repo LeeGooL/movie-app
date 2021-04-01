@@ -1,7 +1,7 @@
 import React from "react";
-import { observer } from "mobx-react-lite";
-import { toJS } from "mobx";
 import intlFormat from "date-fns/intlFormat";
+import { observer } from "mobx-react-lite";
+import ContentLoader from "react-content-loader";
 
 import movies from "@store/movies";
 
@@ -25,35 +25,49 @@ vote_count: 1236
 */
 
 const Movies = observer(() => {
-  React.useEffect(() => {
-    movies.fetchMovies();
-  }, []);
-
   return (
     <div className="movies">
       <ul className="movies__items">
-        {toJS(movies.movies).map(
-          ({ id, poster_path, original_title, release_date }) => {
-            return (
-              <li className="movies__item" key={id}>
-                <img
-                  className="movies__item-poster"
-                  src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-                  alt=""
-                />
+        {!movies.isLoaded
+          ? new Array(5).fill("").map(() => (
+              <ContentLoader
+                speed={2}
+                width={230}
+                height={420}
+                viewBox="0 0 230 420"
+                backgroundColor="#eeeeee"
+                foregroundColor="#ecebeb"
+              >
+                <rect x="0" y="0" rx="5" ry="5" width="230" height="345" />
+                <rect x="0" y="355" rx="5" ry="5" width="230" height="15" />
+                <rect x="0" y="400" rx="5" ry="5" width="30" height="15" />
+              </ContentLoader>
+            ))
+          : movies.movies.map(
+              ({ id, poster_path, original_title, release_date }) => {
+                return (
+                  <li className="movies__item" key={id}>
+                    <img
+                      className="movies__item-poster"
+                      src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                      alt=""
+                    />
 
-                <div className="movies__item-name">{original_title}</div>
-                <div className="movies__item-year">
-                  {intlFormat(
-                    new Date(release_date),
-                    { year: "numeric" },
-                    { locale: "en-US" }
-                  )}
-                </div>
-              </li>
-            );
-          }
-        )}
+                    <div className="movies__item-wrapper">
+                      <div className="movies__item-name">{original_title}</div>
+                      <div className="movies__item-year">
+                        {release_date &&
+                          intlFormat(
+                            new Date(release_date),
+                            { year: "numeric" },
+                            { locale: "en-US" }
+                          )}
+                      </div>
+                    </div>
+                  </li>
+                );
+              }
+            )}
       </ul>
     </div>
   );
