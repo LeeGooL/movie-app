@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import classNames from "classnames";
 import { observer } from "mobx-react-lite";
 
@@ -10,14 +10,24 @@ import "./movies-bar.scss";
 
 const MoviesBar = observer(() => {
   const { pagesCount, moviesCount } = movies;
-  const [currentPage, setCurrentPage] = React.useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortingType, setSortingType] = useState(
+    localStorage.getItem("sortingType") || "popularity.desc"
+  );
   const pages = [];
 
   createPages(pages, pagesCount, currentPage);
 
   React.useEffect(() => {
-    movies.fetchMovies(currentPage);
-  }, [currentPage]);
+    if (localStorage.getItem("sortingType") !== sortingType) {
+      setCurrentPage(1);
+      movies.fetchMovies(currentPage, sortingType);
+    } else {
+      movies.fetchMovies(currentPage, sortingType);
+    }
+
+    localStorage.setItem("sortingType", sortingType);
+  }, [currentPage, sortingType]);
 
   const onChangePage = (page) => {
     setCurrentPage(page);
@@ -31,57 +41,59 @@ const MoviesBar = observer(() => {
     setCurrentPage((prevState) => prevState - 1);
   };
 
+  const changeSortingType = ({ target: { value } }) => {
+    setSortingType(value);
+  };
+
   return (
     <div className="movies-bar">
       <div className="movies-bar__row first">
-        <div className="movies-bar__row-wrapper">
-          <div className="movies-bar__count">{moviesCount} movies</div>
+        <div className="movies-bar__count">{moviesCount} movies</div>
 
-          <div className="movies-bar__tags">
-            <div className="movies-bar__tag">
-              genre
-              <svg
-                className="movies-bar__tag-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="white"
-                width="18px"
-                height="18px"
-              >
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-              </svg>
-            </div>
+        <div className="movies-bar__tags">
+          <div className="movies-bar__tag">
+            genre
+            <svg
+              className="movies-bar__tag-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="white"
+              width="18px"
+              height="18px"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            </svg>
+          </div>
 
-            <div className="movies-bar__tag">
-              rating
-              <svg
-                className="movies-bar__tag-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="white"
-                width="18px"
-                height="18px"
-              >
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-              </svg>
-            </div>
+          <div className="movies-bar__tag">
+            rating
+            <svg
+              className="movies-bar__tag-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="white"
+              width="18px"
+              height="18px"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            </svg>
+          </div>
 
-            <div className="movies-bar__tag">
-              year
-              <svg
-                className="movies-bar__tag-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="white"
-                width="18px"
-                height="18px"
-              >
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-              </svg>
-            </div>
+          <div className="movies-bar__tag">
+            year
+            <svg
+              className="movies-bar__tag-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="white"
+              width="18px"
+              height="18px"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            </svg>
           </div>
         </div>
       </div>
@@ -134,29 +146,31 @@ const MoviesBar = observer(() => {
             id=""
             placeholder="sorting by"
             className="movies-bar__sorting-select"
+            onChange={changeSortingType}
+            value={sortingType}
           >
-            <option value="none" hidden="">
-              don't sorting
+            <option value="popularity.desc" hidden="">
+              popularity (descending)
             </option>
 
-            <option value="name" hidden="">
-              name
-            </option>
-
-            <option value="rat-asc" hidden="">
-              rating (ascending)
-            </option>
-
-            <option value="rat-des" hidden="">
-              rating (descending)
-            </option>
-
-            <option value="pop-asc" hidden="">
+            <option value="popularity.asc" hidden="">
               popularity (ascending)
             </option>
 
-            <option value="pop-des" hidden="">
-              popularity (descending)
+            <option value="original_title.asc" hidden="">
+              name (ascending)
+            </option>
+
+            <option value="original_title.desc" hidden="">
+              name (descending)
+            </option>
+
+            <option value="vote_average.asc" hidden="">
+              vote average (ascending)
+            </option>
+
+            <option value="vote_average.desc" hidden="">
+              vote average (descending)
             </option>
           </select>
         </div>

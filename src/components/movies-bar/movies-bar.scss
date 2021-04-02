@@ -24,11 +24,6 @@
 		align-items: center;
 		justify-content: space-between;
 	}
-
-  &-wrapper {
-    display: flex;
-    align-items: center;
-  }
 }
 
 .movies-bar .movies-bar__count {
@@ -181,7 +176,8 @@
 .movies-bar__sorting-select {
   width: 220px;
   height: 30px;
-  padding: 5px 5px;
+	padding: 5px 0;
+	font-size: 12px;
 
   color: #bec2ce;
   text-transform: uppercase;

@@ -13,13 +13,7 @@ class Movies {
     makeAutoObservable(this, {}, { deep: true });
   }
 
-  get moviesTotal() {
-    return this.movies;
-  }
-
-  fetchMovies(currentPage) {
-    this.isLoaded = false;
-
+  getMovies(currentPage = 1, sortingType = "popularity.desc") {
     axios
       .get(`${API_URL}/discover/movie`, {
         params: {
@@ -27,6 +21,7 @@ class Movies {
           language: "en-US",
           limit: 18,
           page: currentPage,
+          sort_by: sortingType,
         },
       })
       .then(({ data: { results, total_pages, total_results } }) => {
@@ -35,6 +30,16 @@ class Movies {
         this.moviesCount = total_results;
         this.pagesCount = total_pages;
       });
+  }
+
+  fetchMovies(currentPage = 1, sortingType = "popularity.desc") {
+    this.isLoaded = false;
+
+    if (sortingType !== "popularity.desc") {
+      this.getMovies(currentPage, sortingType);
+    } else {
+      this.getMovies(currentPage);
+    }
   }
 }
 
