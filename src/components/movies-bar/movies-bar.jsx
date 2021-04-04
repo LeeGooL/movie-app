@@ -1,123 +1,113 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import classNames from "classnames";
 import { observer } from "mobx-react-lite";
 
 import movies from "@store/movies";
+import filters from "@store/filters";
 
 import { createPages } from "@utils/pages-creator";
 
-import "./movies-bar.scss";
+import styles from "./movies-bar.module.scss";
 
 const MoviesBar = observer(() => {
-  const { pagesCount, moviesCount } = movies;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sortingType, setSortingType] = useState(
-    localStorage.getItem("sortingType") || "popularity.desc"
-  );
   const pages = [];
 
-  createPages(pages, pagesCount, currentPage);
+  createPages(pages, movies.pagesCount, filters.currentPage);
 
-  React.useEffect(() => {
-    if (localStorage.getItem("sortingType") !== sortingType) {
-      setCurrentPage(1);
-      movies.fetchMovies(currentPage, sortingType);
-    } else {
-      movies.fetchMovies(currentPage, sortingType);
-    }
+  useEffect(() => {
+    movies.fetchMovies();
+  }, [filters.currentPage, filters.sortingType]);
 
-    localStorage.setItem("sortingType", sortingType);
-  }, [currentPage, sortingType]);
-
-  const onChangePage = (page) => {
-    setCurrentPage(page);
+  const setCurrentPage = (page) => {
+    filters.setCurrentPage(page);
   };
 
-  const increaseCurrentPage = () => {
-    setCurrentPage((prevState) => prevState + 1);
-  };
-
-  const reduceCurrentPage = () => {
-    setCurrentPage((prevState) => prevState - 1);
+  const changeCurrentPage = (action) => {
+    filters.changeCurrentPage(action);
   };
 
   const changeSortingType = ({ target: { value } }) => {
-    setSortingType(value);
+    filters.setSortingType(value);
+    localStorage.setItem("sortingType", value);
+  };
+
+  const removeTag = (tag) => {
+    const index = filters.tags.indexOf(tag);
+    const removeTag = [
+      ...filters.tags.slice(0, index),
+      ...filters.tags.slice(index + 1),
+    ];
+
+    filters.setTags(removeTag);
+
+    if (tag === "release year") {
+      filters.setReleaseYears({ min: 1980, max: 2021 });
+    } else if (tag === "genres") {
+      filters.setSelectedGenres([]);
+    } else if (tag === "rating") {
+      filters.setRating(-1);
+    }
+
+    movies.fetchMovies();
   };
 
   return (
-    <div className="movies-bar">
-      <div className="movies-bar__row first">
-        <div className="movies-bar__count">{moviesCount} movies</div>
+    <div className={styles.moviesBar}>
+      <div className={`${styles.moviesBar__row} ${styles.first}`}>
+        <div className={styles.moviesBar__count}>
+          {movies.moviesCount === 10000
+            ? `${movies.moviesCount}+`
+            : movies.moviesCount}{" "}
+          movies
+        </div>
 
-        <div className="movies-bar__tags">
-          <div className="movies-bar__tag">
-            genre
-            <svg
-              className="movies-bar__tag-icon"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="white"
-              width="18px"
-              height="18px"
-            >
-              <path d="M0 0h24v24H0z" fill="none" />
-              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-            </svg>
-          </div>
-
-          <div className="movies-bar__tag">
-            rating
-            <svg
-              className="movies-bar__tag-icon"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="white"
-              width="18px"
-              height="18px"
-            >
-              <path d="M0 0h24v24H0z" fill="none" />
-              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-            </svg>
-          </div>
-
-          <div className="movies-bar__tag">
-            year
-            <svg
-              className="movies-bar__tag-icon"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="white"
-              width="18px"
-              height="18px"
-            >
-              <path d="M0 0h24v24H0z" fill="none" />
-              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-            </svg>
-          </div>
+        <div className={styles.moviesBar__tags}>
+          {filters.tags.map((tag, index) => {
+            return (
+              <div className={styles.moviesBar__tag} key={index}>
+                {tag}
+                <svg
+                  className={styles.moviesBar__tagIcon}
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="white"
+                  width="18px"
+                  height="18px"
+                  onClick={() => removeTag(tag)}
+                >
+                  <path d="M0 0h24v24H0z" fill="none" />
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      <div className="movies-bar__row second">
-        <div className="movies-bar__pagination">
+      <div className={`${styles.moviesBar__row} ${styles.second}`}>
+        <div className={styles.moviesBar__pagination}>
           <button
-            className="pagination__button back"
-            onClick={reduceCurrentPage}
-            disabled={currentPage === 1 ? true : false}
+            className={`${styles.pagination__button} ${styles.back}`}
+            onClick={() => changeCurrentPage("reduce")}
+            disabled={
+              (filters.currentPage === 1 ? true : false) ||
+              (!movies.isLoaded ? true : false)
+            }
           >
             back
           </button>
 
-          <ul className="pagination__list">
+          <ul className={styles.pagination__list}>
             {pages &&
               pages.map((page, index) => {
                 return (
                   <li
-                    className={classNames("pagination__list-page", {
-                      active: currentPage === page,
+                    className={classNames(styles.pagination__listPage, {
+                      [`${styles.active}`]: filters.currentPage === page,
                     })}
                     key={index}
-                    onClick={() => onChangePage(page)}
+                    onClick={() => setCurrentPage(page)}
+                    disabled={!movies.isLoaded ? true : false}
                   >
                     {page}
                   </li>
@@ -126,52 +116,43 @@ const MoviesBar = observer(() => {
           </ul>
 
           <button
-            className="pagination__button next"
-            onClick={increaseCurrentPage}
-            disabled={currentPage === pagesCount ? true : false}
+            className={`${styles.pagination__button} ${styles.next}`}
+            onClick={() => changeCurrentPage("increase")}
+            disabled={
+              (filters.currentPage === movies.pagesCount ? true : false) ||
+              (!movies.isLoaded ? true : false)
+            }
           >
             next
           </button>
 
-          <div className="pagination__pages-count">
-            TotalPages: {pagesCount}
+          <div className={styles.pagination__pagesCount}>
+            TotalPages: {movies.pagesCount}
           </div>
         </div>
 
-        <div className="movies-bar__sorting">
-          <div className="movies-bar__sorting-title">sort by:</div>
+        <div className={styles.moviesBar__sorting}>
+          <div className={styles.moviesBar__sortingTitle}>sort by:</div>
 
           <select
             name=""
             id=""
             placeholder="sorting by"
-            className="movies-bar__sorting-select"
+            className={styles.moviesBar__sortingSelect}
             onChange={changeSortingType}
-            value={sortingType}
+            value={localStorage.getItem("sortingType") || filters.sortingType}
           >
-            <option value="popularity.desc" hidden="">
-              popularity (descending)
-            </option>
+            <option value="popularity.desc">popularity (descending)</option>
 
-            <option value="popularity.asc" hidden="">
-              popularity (ascending)
-            </option>
+            <option value="popularity.asc">popularity (ascending)</option>
 
-            <option value="original_title.asc" hidden="">
-              name (ascending)
-            </option>
+            <option value="original_title.asc">name (ascending)</option>
 
-            <option value="original_title.desc" hidden="">
-              name (descending)
-            </option>
+            <option value="original_title.desc">name (descending)</option>
 
-            <option value="vote_average.asc" hidden="">
-              vote average (ascending)
-            </option>
+            <option value="vote_average.asc">vote average (ascending)</option>
 
-            <option value="vote_average.desc" hidden="">
-              vote average (descending)
-            </option>
+            <option value="vote_average.desc">vote average (descending)</option>
           </select>
         </div>
       </div>

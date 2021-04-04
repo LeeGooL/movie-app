@@ -6,12 +6,12 @@ import { MovieItemLoader, MovieItem } from "@components/";
 
 import movies from "@store/movies";
 
-import "./movies.scss";
+import styles from "./movies.module.scss";
 
 const Movies = observer(() => {
   return (
-    <div className="movies">
-      <ul className="movies__items">
+    <div className={styles.movies}>
+      <ul className={styles.movies__items}>
         {!movies.isLoaded ? <MovieItemLoader /> : <MovieItem />}
       </ul>
     </div>

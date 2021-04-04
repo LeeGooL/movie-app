@@ -50,7 +50,7 @@ a {
   text-decoration: none;
 }
 
-.movie-app__container {
+.movieApp {
   display: grid;
   width: 100vw;
   height: 100vh;
@@ -64,15 +64,15 @@ a {
   grid-template-rows: 50px 110px 1fr;
 }
 
-.movie-app__search {
+.movieApp__search {
   grid-area: search;
 }
 
-.movie-app__profile {
+.movieApp__profile {
   grid-area: profile;
 }
 
-.movie-app__filters {
+.movieApp__filters {
   -webkit-box-shadow: 4px 4px 8px 0 rgba(34, 60, 80, 0.2);
      -moz-box-shadow: 4px 4px 8px 0 rgba(34, 60, 80, 0.2);
           box-shadow: 4px 4px 8px 0 rgba(34, 60, 80, 0.2);
@@ -80,11 +80,11 @@ a {
   grid-area: filters;
 }
 
-.movie-app__movies-bar {
+.movieApp__moviesBar {
   grid-area: bar;
 }
 
-.movie-app__movies {
+.movieApp__movies {
   overflow: hidden;
 
   grid-area: movies;

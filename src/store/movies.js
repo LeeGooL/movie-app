@@ -1,5 +1,7 @@
-import { makeAutoObservable } from "mobx";
+import { action, makeAutoObservable } from "mobx";
 import axios from "axios";
+
+import filters from "./filters";
 
 import { API_URL, API_KEY_3 } from "@constants/api";
 
@@ -13,32 +15,56 @@ class Movies {
     makeAutoObservable(this, {}, { deep: true });
   }
 
-  getMovies(currentPage = 1, sortingType = "popularity.desc") {
+  getMovies(
+    currentPage,
+    sortingType = "popularity.desc",
+    genresList,
+    releaseYear,
+    rating
+  ) {
     axios
       .get(`${API_URL}/discover/movie`, {
         params: {
           api_key: API_KEY_3,
           language: "en-US",
-          limit: 18,
           page: currentPage,
           sort_by: sortingType,
+          with_genres: genresList && genresList.join(","),
+          [`vote_average.gte`]: rating !== -1 ? rating : "",
+          [`vote_average.lte`]: rating !== -1 ? rating : "",
+          [`primary_release_date.gte`]: `${releaseYear.min}-01-01`,
+          [`primary_release_date.lte`]: `${releaseYear.max}-12-31`,
         },
       })
-      .then(({ data: { results, total_pages, total_results } }) => {
-        this.isLoaded = true;
-        this.movies = results;
-        this.moviesCount = total_results;
-        this.pagesCount = total_pages;
-      });
+      .then(
+        action(({ data: { results, total_pages, total_results } }) => {
+          this.isLoaded = true;
+          this.movies = results;
+          this.moviesCount = total_results;
+          this.pagesCount = total_pages;
+        })
+      );
   }
 
-  fetchMovies(currentPage = 1, sortingType = "popularity.desc") {
+  fetchMovies() {
     this.isLoaded = false;
 
-    if (sortingType !== "popularity.desc") {
-      this.getMovies(currentPage, sortingType);
+    if (filters.sortingType !== "popularity.desc") {
+      this.getMovies(
+        filters.currentPage,
+        filters.sortingType,
+        filters.selectedGenresList,
+        filters.releaseYears,
+        filters.rating
+      );
     } else {
-      this.getMovies(currentPage);
+      this.getMovies(
+        filters.currentPage,
+        filters.sortingType,
+        filters.selectedGenresList,
+        filters.releaseYears,
+        filters.rating
+      );
     }
   }
 }

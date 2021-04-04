@@ -5,33 +5,39 @@ import { observer } from "mobx-react-lite";
 
 import movies from "@store/movies";
 
-import "./movie-item.scss";
+import styles from "./movie-item.module.scss";
 
 const MovieItem = observer(() => {
   return (
     <>
       {movies.movies.map(
-        ({ id, poster_path, original_title, release_date }) => (
-          <li className="movies__item" key={id}>
-            <img
-              className="movies__item-poster"
-              src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-              alt=""
-            />
+        ({ id, poster_path, original_title, release_date, vote_average }) => {
+          return (
+            <li className={styles.movies__item} key={id}>
+              {poster_path !== null ? (
+                <img
+                  className={styles.movies__itemPoster}
+                  src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                  alt=""
+                />
+              ) : (
+                <div className={styles.movies__itemNoPoster}>no poster</div>
+              )}
 
-            <div className="movies__item-wrapper">
-              <div className="movies__item-name">{original_title}</div>
-              <div className="movies__item-year">
-                {release_date &&
-                  intlFormat(
-                    new Date(release_date),
-                    { year: "numeric" },
-                    { locale: "en-US" }
-                  )}
+              <div className={styles.movies__itemWrapper}>
+                <div className={styles.movies__itemName}>{original_title}</div>
+                <div className={styles.movies__itemYear}>
+                  {release_date &&
+                    intlFormat(
+                      new Date(release_date),
+                      { year: "numeric" },
+                      { locale: "en-US" }
+                    )}
+                </div>
               </div>
-            </div>
-          </li>
-        )
+            </li>
+          );
+        }
       )}
     </>
   );

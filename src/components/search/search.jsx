@@ -1,22 +1,24 @@
-import React from 'react';
+import React from "react";
 
-import './search.scss';
+import styles from "./search.module.scss";
 
 const Search = () => {
-	return (
-		<div className='search'>
-			<label className='search__label' htmlFor='search'>
-				<span className='material-icons search__icon'>search</span>
+  return (
+    <div className={styles.search}>
+      <label className={styles.search__label} htmlFor="search">
+        <span className={`${"material-icons"} ${styles.search__icon}`}>
+          search
+        </span>
 
-				<input
-					className='search__input'
-					type='text'
-					placeholder='Search movies'
-					name='search'
-				/>
-			</label>
-		</div>
-	);
+        <input
+          className={styles.search__input}
+          type="text"
+          placeholder="Search movies"
+          name="search"
+        />
+      </label>
+    </div>
+  );
 };
 
 export default Search;

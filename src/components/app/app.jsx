@@ -2,27 +2,27 @@ import React from "react";
 
 import { Search, Profile, Filters, Movies, MoviesBar } from "@components";
 
-import "./app.scss";
+import styles from "./app.module.scss";
 
 const App = () => {
   return (
-    <div className="movie-app__container">
-      <div className="movie-app__search">
+    <div className={styles.movieApp}>
+      <div className={styles.movieApp__search}>
         <Search />
       </div>
 
-      <div className="movie-app__profile">
+      <div className={styles.movieApp__profile}>
         <Profile />
       </div>
 
-      <div className="movie-app__filters">
+      <div className={styles.movieApp__filters}>
         <Filters />
       </div>
-      <div className="movie-app__movies-bar">
+      <div className={styles.movieApp__moviesBar}>
         <MoviesBar />
       </div>
 
-      <div className="movie-app__movies">
+      <div className={styles.movieApp__movies}>
         <Movies />
       </div>
     </div>

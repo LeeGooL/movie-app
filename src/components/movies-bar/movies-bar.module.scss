@@ -1,4 +1,4 @@
-.movies-bar {
+.moviesBar {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -9,24 +9,24 @@
   background: #182130;
 }
 
-.movies-bar__row {
+.moviesBar__row {
   width: 100%;
 
   &.first {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-		margin-bottom: 20px;
+    margin-bottom: 20px;
   }
 
-	&.second {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
+  &.second {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
-.movies-bar .movies-bar__count {
+.moviesBar .moviesBar__count {
   margin-right: 15px;
 
   font-weight: 500;
@@ -35,12 +35,12 @@
   text-transform: uppercase;
 }
 
-.movies-bar__tags {
+.moviesBar__tags {
   display: flex;
   align-items: center;
 }
 
-.movies-bar__tag {
+.moviesBar__tag {
   display: flex;
   align-items: center;
   margin-right: 10px;
@@ -57,7 +57,7 @@
     margin-right: 0;
   }
 
-  & .movies-bar__tag-icon {
+  & .moviesBar__tagIcon {
     margin-left: 5px;
 
     cursor: pointer;
@@ -70,7 +70,7 @@
   }
 }
 
-.movies-bar__pagination {
+.moviesBar__pagination {
   display: flex;
   align-items: center;
 }
@@ -114,7 +114,7 @@
   margin: 0 20px;
 }
 
-.pagination__list-page {
+.pagination__listPage {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -154,18 +154,18 @@
   }
 }
 
-.pagination__pages-count {
+.pagination__pagesCount {
   margin-left: 30px;
 
   color: white;
 }
 
-.movies-bar__sorting {
+.moviesBar__sorting {
   display: flex;
   align-items: center;
 }
 
-.movies-bar__sorting-title {
+.moviesBar__sortingTitle {
   margin-right: 15px;
 
   font-size: 12px;
@@ -173,12 +173,12 @@
   text-transform: uppercase;
 }
 
-.movies-bar__sorting-select {
+.moviesBar__sortingSelect {
   width: 220px;
   height: 30px;
-	padding: 5px 0;
-	font-size: 12px;
+  padding: 5px 0;
 
+  font-size: 12px;
   color: #bec2ce;
   text-transform: uppercase;
 
