@@ -1,194 +1,205 @@
 .filters {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+	height: 100%;
 
-  background: #282f40;
+	background: #282f40;
 
-  & .title {
-    margin-bottom: 7px;
-    margin-left: 20px;
+	& .title {
+		margin-bottom: 7px;
+		margin-left: 20px;
 
-    font-size: 16px;
-    color: darken(#e5eaf0, 10%);
-    text-transform: uppercase;
-  }
+		font-size: 16px;
+		color: darken(#e5eaf0, 10%);
+		text-transform: uppercase;
+	}
 }
 
 .filters__title {
-  margin: 15px 0 35px 20px;
+	margin: 15px 0 35px 20px;
 
-  font-size: 25px;
-  color: #e5eaf0;
-  text-transform: uppercase;
+	font-size: 25px;
+	color: #e5eaf0;
+	text-transform: uppercase;
 }
 
 .filters__listGenres {
-  width: 100%;
-  max-height: 185px;
-  margin-bottom: 30px;
-  padding: 5px 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+	width: 100%;
+	max-height: 185px;
+	margin-bottom: 30px;
+	padding: 5px 0;
+	overflow-x: hidden;
+	overflow-y: auto;
 
-  border-top: 4px solid #313946;
+	border-top: 4px solid #313946;
 
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
+	&::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+	}
 
-  &::-webkit-scrollbar-thumb {
-    background-color: lighten(#9c5e60, 15%);
-    border-radius: 0;
-  }
+	&::-webkit-scrollbar-thumb {
+		background-color: lighten(#9c5e60, 15%);
+		border-radius: 0;
+	}
 
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
+	&::-webkit-scrollbar-track {
+		background-color: transparent;
+	}
 }
 
 .filters__genresTitle {
-  position: relative;
+	position: relative;
 
-  margin-bottom: 10px;
-  margin-left: 20px;
+	margin-bottom: 10px;
+	margin-left: 20px;
 
-  font-size: 14px;
-  color: darken(#e5eaf0, 10%);
-  text-transform: uppercase;
+	font-size: 14px;
+	color: darken(#e5eaf0, 10%);
+	text-transform: uppercase;
 }
 
 .filters__listItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 30px;
-  margin: 5px 0;
-  padding: 0 5px 0 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 30px;
+	margin: 5px 0;
+	padding: 0 5px 0 20px;
 
-  font-size: 13px;
-  color: darkgray;
-  text-transform: uppercase;
+	font-size: 13px;
+	color: darkgray;
+	text-transform: uppercase;
 
-  cursor: pointer;
+	cursor: pointer;
 
-  transition: background 0.2s linear;
+	transition: background 0.2s linear;
 
-  &:hover {
-    background-color: #9c5e60;
+	&:hover {
+		background-color: #9c5e60;
 
-    & .filters__listItemIcon {
-      display: block;
+		& .filters__listItemIcon {
+			display: block;
 
-      transition: fill 0.2s linear;
+			transition: fill 0.2s linear;
 
-      fill: #e5eaf0;
+			fill: #e5eaf0;
 
-      &:hover {
-        fill: black;
-      }
-    }
-  }
+			&:hover {
+				fill: black;
+			}
+		}
+	}
 
-  &.selected {
-    background: #2c3544;
+	&.selected {
+		background: #2c3544;
 
-    & .filters__listItemIcon {
-      display: block;
-    }
+		& .filters__listItemIcon {
+			display: block;
+		}
 
-    &:hover .filters__listItemIcon {
-      display: block;
-    }
-  }
+		&:hover .filters__listItemIcon {
+			display: block;
+		}
+	}
 
-  & .filters__listItemIcon {
-    display: none;
-  }
+	& .filters__listItemIcon {
+		display: none;
+	}
 }
 
 .filters__releaseYearCount {
-  margin-bottom: 5px;
+	margin-bottom: 5px;
 
-  text-align: right;
-  color: #818996;
+	text-align: right;
+	color: #818996;
 }
 
 .filters__rating,
 .filters__releaseYear {
-  width: 100%;
-  margin-bottom: 30px;
-  padding: 30px 20px 5px 20px;
+	width: 100%;
+	margin-bottom: 30px;
+	padding: 30px 20px 5px 20px;
 
-  border-top: 4px solid #313946;
+	border-top: 4px solid #313946;
 
-  &:last-child {
-    margin-bottom: 0;
-  }
+	&:last-child {
+		margin-bottom: 0;
+	}
 }
 
 .filters__rating {
-  padding-top: 15px;
+	padding-top: 15px;
 
-  & .inputRange__labelContainer {
-    display: none;
-  }
+	& .inputRange__labelContainer {
+		display: none;
+	}
 }
 
 // ========================== sliders styles ==========================
 
 .inputRange__track {
-  background: darken(#979eec, 10%);
+	background: darken(#979eec, 10%);
 }
 
 .inputRange__trackBackground {
-  position: absolute;
-  top: 50%;
-  right: 0;
+	position: absolute;
+	top: 50%;
+	right: 0;
 
-  margin-top: -0.15rem;
+	margin-top: -0.15rem;
 
-  background: #505364;
+	background: #505364;
 }
 
 .inputRange__labelContainer {
-  position: relative;
-  left: -50%;
+	position: relative;
+	left: -50%;
 }
 
 .inputRange__slider {
-  position: absolute;
-  top: 50%;
+	position: absolute;
+	top: 50%;
 
-  display: block;
-  width: 1rem;
-  height: 1rem;
-  margin-top: -0.65rem;
-  margin-left: -0.5rem;
+	display: block;
+	width: 1rem;
+	height: 1rem;
+	margin-top: -0.65rem;
+	margin-left: -0.5rem;
 
-  background: white;
-  border: 1px solid white;
-  border-radius: 100%;
-  outline: none;
-  cursor: pointer;
+	background: white;
+	border: 1px solid white;
+	border-radius: 100%;
+	outline: none;
+	cursor: pointer;
 
-  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+	transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
 .filters__releaseYear {
-  & .inputRange__labelMin,
-  & .inputRange__labelMax {
-    display: none;
-  }
+	& .inputRange__labelMin,
+	& .inputRange__labelMax {
+		display: none;
+	}
 }
 
 .filters__rating {
-  .input-range__label--value,
-  .input-range__label--min,
-  .input-range__label--max {
-    display: none;
-  }
+	.input-range__label--value,
+	.input-range__label--min,
+	.input-range__label--max {
+		display: none;
+	}
+}
+
+.inputRangeDisabled {
+	height: 1rem;
+	width: 100%;
+	position: relative;
+
+	& .inputRange__slider {
+		background: darken(white, 50%);
+		border-color: darken(white, 50%);
+	}
 }

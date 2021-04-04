@@ -12,7 +12,7 @@ import styles from "./filters.module.scss";
 
 const DEFAULT_CLASS_NAMES = {
   activeTrack: `input-range__track ${styles.inputRange__track}`,
-  disabledInputRange: "input-range input-range--disabled",
+  disabledInputRange: `input-range ${styles.inputRangeDisabled}`,
   inputRange: "input-range",
   labelContainer: `${styles.inputRange__labelContainer}`,
   maxLabel: `input-range__label ${styles.inputRange__labelMax}`,
@@ -91,6 +91,7 @@ const Filters = observer(() => {
       filters.setSelectedGenres(newGenres);
     } else {
       const newGenres = filters.selectedGenresList.slice();
+
       newGenres.push(id);
 
       filters.setSelectedGenres(newGenres);
@@ -118,47 +119,52 @@ const Filters = observer(() => {
       <h4 className={`${styles.filters__listTitle} ${styles.title}`}>genres</h4>
 
       <div className={styles.filters__listGenres}>
-        <ul className={styles.filters__listGenresName}>
-          {filters.genresList.map(({ id, name }) => {
-            return (
-              <li
-                className={classNames(styles.filters__listItem, {
-                  [`${styles.selected}`]: filters.selectedGenresList.includes(
-                    id
-                  ),
-                })}
-                onClick={() => onSelectGenre(id)}
-                key={id}
-              >
-                {name}
-                {filters.selectedGenresList.includes(id) ? (
-                  <svg
-                    className={styles.filters__listItemIcon}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="white"
-                    width="18px"
-                    height="18px"
+        <ul
+          className={styles.filters__listGenresName}
+          disabled={filters.searchValue !== ""}
+        >
+          {filters.searchValue === ""
+            ? filters.genresList.map(({ id, name }) => {
+                return (
+                  <li
+                    className={classNames(styles.filters__listItem, {
+                      [`${styles.selected}`]: filters.selectedGenresList.includes(
+                        id
+                      ),
+                    })}
+                    onClick={() => onSelectGenre(id)}
+                    key={id}
                   >
-                    <path d="M0 0h24v24H0z" fill="none" />
-                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
-                  </svg>
-                ) : (
-                  <svg
-                    className={styles.filters__listItemIcon}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="white"
-                    width="18px"
-                    height="18px"
-                  >
-                    <path d="M0 0h24v24H0z" fill="none" />
-                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                  </svg>
-                )}
-              </li>
-            );
-          })}
+                    {name}
+                    {filters.selectedGenresList.includes(id) ? (
+                      <svg
+                        className={styles.filters__listItemIcon}
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="white"
+                        width="18px"
+                        height="18px"
+                      >
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                      </svg>
+                    ) : (
+                      <svg
+                        className={styles.filters__listItemIcon}
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="white"
+                        width="18px"
+                        height="18px"
+                      >
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                      </svg>
+                    )}
+                  </li>
+                );
+              })
+            : null}
         </ul>
       </div>
 
@@ -177,6 +183,7 @@ const Filters = observer(() => {
           minValue={-1}
           value={filters.rating}
           onChange={onChangeRating}
+          disabled={filters.searchValue !== ""}
         />
       </div>
 
@@ -191,6 +198,7 @@ const Filters = observer(() => {
           minValue={years[0]}
           value={filters.releaseYears}
           onChange={onChangeReleaseYear}
+          disabled={filters.searchValue !== ""}
         />
       </div>
     </div>

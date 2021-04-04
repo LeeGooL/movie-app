@@ -15,13 +15,7 @@ class Movies {
     makeAutoObservable(this, {}, { deep: true });
   }
 
-  getMovies(
-    currentPage,
-    sortingType = "popularity.desc",
-    genresList,
-    releaseYear,
-    rating
-  ) {
+  getMovies(currentPage, sortingType, genresList, releaseYear, rating) {
     axios
       .get(`${API_URL}/discover/movie`, {
         params: {
@@ -29,7 +23,7 @@ class Movies {
           language: "en-US",
           page: currentPage,
           sort_by: sortingType,
-          with_genres: genresList && genresList.join(","),
+          with_genres: genresList.length ? genresList.join(",") : "",
           [`vote_average.gte`]: rating !== -1 ? rating : "",
           [`vote_average.lte`]: rating !== -1 ? rating : "",
           [`primary_release_date.gte`]: `${releaseYear.min}-01-01`,
@@ -46,10 +40,39 @@ class Movies {
       );
   }
 
+  searchMovies(
+    searchValue,
+    currentPage,
+    sortingType,
+    genresList,
+    releaseYear,
+    rating
+  ) {
+    axios
+      .get(`${API_URL}/search/movie`, {
+        params: {
+          api_key: API_KEY_3,
+          language: "en-US",
+          query: searchValue,
+          page: currentPage,
+        },
+      })
+      .then(
+        action(({ data: { results, total_pages, total_results } }) => {
+          this.isLoaded = true;
+          this.movies = results;
+          this.moviesCount = total_results;
+          this.pagesCount = total_pages;
+        })
+      );
+  }
+
   fetchMovies() {
     this.isLoaded = false;
 
-    if (filters.sortingType !== "popularity.desc") {
+    if (filters.searchValue !== "") {
+      this.searchMovies(filters.searchValue, filters.currentPage);
+    } else if (filters.sortingType !== "popularity.desc") {
       this.getMovies(
         filters.currentPage,
         filters.sortingType,

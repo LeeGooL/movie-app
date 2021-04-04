@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import classNames from "classnames";
+
 import { observer } from "mobx-react-lite";
 
 import movies from "@store/movies";
@@ -141,6 +142,7 @@ const MoviesBar = observer(() => {
             className={styles.moviesBar__sortingSelect}
             onChange={changeSortingType}
             value={localStorage.getItem("sortingType") || filters.sortingType}
+            disabled={filters.searchValue !== ""}
           >
             <option value="popularity.desc">popularity (descending)</option>
 

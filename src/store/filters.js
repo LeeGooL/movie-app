@@ -11,9 +11,11 @@ class Filters {
   releaseYears = { min: 1980, max: 2021 };
   rating = -1;
   tags = [];
+  searchValue = "";
 
   constructor() {
     makeAutoObservable(this, {}, { deep: true });
+    console.log("con", this.genresList);
   }
 
   setSortingType(type) {
@@ -42,6 +44,10 @@ class Filters {
 
   setTags(tags) {
     this.tags = tags;
+  }
+
+  setSearchValue(searchValue) {
+    this.searchValue = searchValue;
   }
 
   getGenresList() {
