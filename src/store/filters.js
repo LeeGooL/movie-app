@@ -15,7 +15,6 @@ class Filters {
 
   constructor() {
     makeAutoObservable(this, {}, { deep: true });
-    console.log("con", this.genresList);
   }
 
   setSortingType(type) {

@@ -1,197 +1,204 @@
 .moviesBar {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  height: auto;
-  padding: 15px 30px 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+	height: 100%;
+	padding: 15px 30px 15px;
 
-  background: #182130;
+	background: #182130;
 }
 
 .moviesBar__row {
-  width: 100%;
+	width: 100%;
 
-  &.first {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-bottom: 20px;
-  }
+	&.first {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		margin-bottom: 20px;
+	}
 
-  &.second {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+	&.second {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
 }
 
 .moviesBar .moviesBar__count {
-  margin-right: 15px;
+	margin-right: 15px;
 
-  font-weight: 500;
-  font-size: 14px;
-  color: #b7c182;
-  text-transform: uppercase;
+	font-weight: 500;
+	font-size: 14px;
+	color: #b7c182;
+	text-transform: uppercase;
 }
 
 .moviesBar__tags {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .moviesBar__tag {
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-  padding: 5px 15px;
+	display: flex;
+	align-items: center;
+	margin-right: 10px;
+	padding: 5px 15px;
 
-  font-size: 14px;
-  color: #e5eaf0;
-  text-transform: uppercase;
+	font-size: 14px;
+	color: #e5eaf0;
+	text-transform: uppercase;
 
-  background: #2c3544;
-  border-radius: 30px;
+	background: #2c3544;
+	border-radius: 30px;
 
-  &:last-child {
-    margin-right: 0;
-  }
+	&:last-child {
+		margin-right: 0;
+	}
 
-  & .moviesBar__tagIcon {
-    margin-left: 5px;
+	& .moviesBar__tagIcon {
+		margin-left: 5px;
 
-    cursor: pointer;
+		cursor: pointer;
 
-    transition: fill 0.2s linear;
+		transition: fill 0.2s linear;
 
-    &:hover {
-      fill: black;
-    }
-  }
+		&:hover {
+			fill: black;
+		}
+	}
 }
 
 .moviesBar__pagination {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .pagination__button {
-  width: 80px;
-  height: 30px;
+	width: 80px;
+	height: 30px;
 
-  color: white;
+	color: white;
 
-  background: transparent;
-  border: 1px solid white;
-  border-radius: 10px;
-  outline: none;
-  cursor: pointer;
+	background: transparent;
+	border: 1px solid white;
+	border-radius: 10px;
+	outline: none;
+	cursor: pointer;
 
-  transition: background 0.2s linear, color 0.2s linear, opacity 0.2s linear;
+	transition: background 0.2s linear, color 0.2s linear, opacity 0.2s linear;
 
-  &:hover {
-    color: black;
+	&:hover {
+		color: black;
 
-    background: white;
-  }
+		background: white;
+	}
 
-  &:disabled {
-    opacity: 0.5;
+	&:disabled {
+		opacity: 0.5;
 
-    &:hover {
-      color: white;
+		&:hover {
+			color: white;
 
-      background: none;
-      cursor: default;
-    }
-  }
+			background: none;
+			cursor: default;
+		}
+	}
 }
 
 .pagination__list {
-  display: flex;
-  align-items: center;
-  width: 170px;
-  margin: 0 20px;
+	display: flex;
+	align-items: center;
+	width: 170px;
+	margin: 0 20px;
 }
 
 .pagination__listPage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  margin-right: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 30px;
+	height: 30px;
+	margin-right: 5px;
 
-  font-size: 15px;
-  color: white;
+	font-size: 15px;
+	color: white;
 
-  background: transparent;
-  border: 2px solid white;
-  border-radius: 10px;
-  cursor: pointer;
+	background: transparent;
+	border: 2px solid white;
+	border-radius: 10px;
+	cursor: pointer;
 
-  transition: background 0.2s linear, color 0.2s linear,
-  border-color 0.2s linear;
+	transition: background 0.2s linear, color 0.2s linear,
+		border-color 0.2s linear;
 
-  &:hover {
-    color: darken(white, 50%);
+	&:hover {
+		color: darken(white, 50%);
 
-    border-color: darken(white, 50%);
-  }
+		border-color: darken(white, 50%);
+	}
 
-  &:last-child {
-    margin-right: 0;
-  }
+	&:last-child {
+		margin-right: 0;
+	}
 
-  &.active {
-    color: black;
+	&.active {
+		color: black;
 
-    background: white;
+		background: white;
 
-    &:hover {
-      border-color: white;
-    }
-  }
+		&:hover {
+			border-color: white;
+		}
+	}
 }
 
 .pagination__pagesCount {
-  margin-left: 30px;
+	margin-left: 30px;
 
-  color: white;
+	color: white;
 }
 
 .moviesBar__sorting {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .moviesBar__sortingTitle {
-  margin-right: 15px;
+	margin-right: 15px;
 
-  font-size: 12px;
-  color: #bec2ce;
-  text-transform: uppercase;
+	font-size: 12px;
+	color: #bec2ce;
+	text-transform: uppercase;
 }
 
 .moviesBar__sortingSelect {
-  width: 220px;
-  height: 30px;
-  padding: 5px 0;
+	width: 220px;
+	height: 30px;
+	padding: 5px 0;
 
-  font-size: 12px;
-  color: #bec2ce;
-  text-transform: uppercase;
+	font-size: 12px;
+	color: #bec2ce;
+	text-transform: uppercase;
 
-  background: #2c3544;
-  border: none;
-  border-radius: 5px;
-  outline: none;
-  cursor: pointer;
+	background: #2c3544;
+	border: none;
+	border-radius: 5px;
+	outline: none;
+	cursor: pointer;
 
-  transition: background 0.2s linear;
+	transition: background 0.2s linear;
 
-  &:hover,
-  &:focus {
-    background: lighten(#182130, 10%);
-  }
+	&:hover,
+	&:focus {
+		background: lighten(#182130, 10%);
+	}
+
+	&:disabled {
+		&:hover,
+		&:focus {
+			background: #2c3544;
+		}
+	}
 }

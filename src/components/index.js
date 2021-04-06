@@ -6,3 +6,4 @@ export { default as Movies } from "./movies";
 export { default as MoviesBar } from "./movies-bar";
 export { default as MovieItemLoader } from "./movie-item-loader";
 export { default as MovieItem } from "./movie-item";
+export { default as AuthorizationForm } from "./authorization-form";

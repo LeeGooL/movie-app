@@ -92,7 +92,8 @@ const MoviesBar = observer(() => {
             onClick={() => changeCurrentPage("reduce")}
             disabled={
               (filters.currentPage === 1 ? true : false) ||
-              (!movies.isLoaded ? true : false)
+              (!movies.isLoaded ? true : false) ||
+              !movies.movies.length
             }
           >
             back
@@ -121,7 +122,8 @@ const MoviesBar = observer(() => {
             onClick={() => changeCurrentPage("increase")}
             disabled={
               (filters.currentPage === movies.pagesCount ? true : false) ||
-              (!movies.isLoaded ? true : false)
+              (!movies.isLoaded ? true : false) ||
+              !movies.movies.length
             }
           >
             next

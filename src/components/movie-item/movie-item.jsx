@@ -11,7 +11,7 @@ const MovieItem = observer(() => {
   return (
     <>
       {movies.movies.map(
-        ({ id, poster_path, original_title, release_date, vote_average }) => {
+        ({ id, poster_path, original_title, release_date }) => {
           return (
             <li className={styles.movies__item} key={id}>
               {poster_path !== null ? (
