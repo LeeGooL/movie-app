@@ -10,6 +10,8 @@ class Movies {
   moviesCount = 0;
   pagesCount = 0;
   isLoaded = false;
+  isDetailInfoVisible = false;
+  selectedMovieDetailInfo = null;
 
   constructor() {
     makeAutoObservable(this, {}, { deep: true });
@@ -38,6 +40,14 @@ class Movies {
           this.pagesCount = total_pages;
         })
       );
+  }
+
+  setIsDetailInfoVisible(type) {
+    return (this.isDetailInfoVisible = type);
+  }
+
+  setSelectedMovieDetailInfo(detail) {
+    return (this.selectedMovieDetailInfo = detail);
   }
 
   searchMovies(

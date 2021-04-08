@@ -20,6 +20,16 @@ class Authorization {
     this.isLoginFormVisible = value;
   }
 
+  getAccountId() {
+    return this.userData ? this.userData.id : null;
+  }
+
+  getSessionId() {
+    if (this.userData !== null) {
+      return this.userData.id;
+    }
+  }
+
   fetchApi(obj) {
     return new Promise((resolve, reject) => {
       if (obj.method === "POST") {

@@ -17,6 +17,10 @@ class Filters {
     makeAutoObservable(this, {}, { deep: true });
   }
 
+  getSortingType() {
+    return this.sortingType;
+  }
+
   setSortingType(type) {
     this.sortingType = type;
   }

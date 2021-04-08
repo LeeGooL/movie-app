@@ -23,7 +23,7 @@ const DEFAULT_CLASS_NAMES = {
   valueLabel: "input-range__label input-range__label--value",
 };
 
-const Filters = observer(() => {
+const Filters = observer(({ history }) => {
   const years = [1980, 2021];
 
   useEffect(() => {
@@ -112,12 +112,18 @@ const Filters = observer(() => {
     }
   };
 
+  console.log("history", history);
+
   return (
     <div className={styles.filters}>
-      <h2 className={styles.filters__title}>Movies</h2>
-
+      {history.location.pathname.includes("watch-later-list") ? (
+        <h2 className={styles.filters__title}>Watch later list</h2>
+      ) : history.location.pathname.includes("favorite-list") ? (
+        <h2 className={styles.filters__title}>Favorite list</h2>
+      ) : (
+        <h2 className={styles.filters__title}>Movies</h2>
+      )}
       <h4 className={`${styles.filters__listTitle} ${styles.title}`}>genres</h4>
-
       <div className={styles.filters__listGenres}>
         <ul
           className={styles.filters__listGenresName}
@@ -167,11 +173,9 @@ const Filters = observer(() => {
             : null}
         </ul>
       </div>
-
       <h4 className={`${styles.filters__ratingTitle} ${styles.title}`}>
         vote average
       </h4>
-
       <div className={styles.filters__rating}>
         <div className={styles.filters__releaseYearCount}>
           {filters.rating === -1 ? "none" : filters.rating}
@@ -186,11 +190,9 @@ const Filters = observer(() => {
           disabled={filters.searchValue !== ""}
         />
       </div>
-
       <h4 className={`${styles.filters__releaseYearTitle} ${styles.title}`}>
         release year
       </h4>
-
       <div className={styles.filters__releaseYear}>
         <InputRange
           classNames={DEFAULT_CLASS_NAMES}
@@ -201,6 +203,7 @@ const Filters = observer(() => {
           disabled={filters.searchValue !== ""}
         />
       </div>
+      }
     </div>
   );
 });

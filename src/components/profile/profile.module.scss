@@ -1,34 +1,66 @@
 .profile {
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-	padding: 5px;
-	z-index: 5;
+  z-index: 5;
 
-	background-color: #0f1829;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+
+  background-color: #0f1829;
 }
 
 .profile__btn {
-	padding: 6px 25px 5px;
-	background: transparent;
-	color: white;
-	border: 2px solid white;
-	cursor: pointer;
-	text-transform: uppercase;
-	outline: none;
+  padding: 6px 25px 5px;
 
-	transition: background 0.3s linear, color 0.3s linear;
+  color: white;
+  text-transform: uppercase;
 
-	&:hover {
-		background: white;
-		color: black;
-	}
+  background: transparent;
+  border: 2px solid white;
+  outline: none;
+  cursor: pointer;
+
+  transition: background 0.3s linear, color 0.3s linear;
+
+  &:hover {
+    color: black;
+
+    background: white;
+  }
 }
 
 .profile__avatar {
-	border-radius: 50%;
-	width: 40px;
-	height: 40px;
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+}
+
+.profile__wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.profile__logOutBtn {
+  padding: 2px 10px;
+	margin-left: 10px;
+
+  color: white;
+	font-size: 12px;
+
+  background: transparent;
+  border: 1px solid white;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+
+  transition: background 0.2s linear, color 0.2s linear, opacity 0.2s linear;
+
+  &:hover {
+    color: black;
+
+    background: white;
+  }
 }

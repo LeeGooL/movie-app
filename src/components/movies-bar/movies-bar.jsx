@@ -1,17 +1,21 @@
 import React, { useEffect } from "react";
 import classNames from "classnames";
+import { Link } from "react-router-dom";
 
 import { observer } from "mobx-react-lite";
 
 import movies from "@store/movies";
 import filters from "@store/filters";
+import authorization from "@store/authorization";
+import profile from "@store/profile";
 
 import { createPages } from "@utils/pages-creator";
 
 import styles from "./movies-bar.module.scss";
 
-const MoviesBar = observer(() => {
+const MoviesBar = observer(({ history }) => {
   const pages = [];
+  // let pagesCount = history.location.pathname.includes('favorite') ? profile.favoriteList;
 
   createPages(pages, movies.pagesCount, filters.currentPage);
 
@@ -55,10 +59,27 @@ const MoviesBar = observer(() => {
   return (
     <div className={styles.moviesBar}>
       <div className={`${styles.moviesBar__row} ${styles.first}`}>
+        {authorization.userData ? (
+          <div className={styles.moviesBar__lists}>
+            <Link
+              className={styles.moviesBar__watchLaterList}
+              to="/watch-later-list"
+            >
+              watch later
+            </Link>
+            <Link
+              className={styles.moviesBar__favoriteList}
+              to="/favorite-list"
+            >
+              favorites
+            </Link>
+          </div>
+        ) : null}
+
         <div className={styles.moviesBar__count}>
           {movies.moviesCount === 10000
             ? `${movies.moviesCount}+`
-            : movies.moviesCount}{" "}
+            : movies.moviesCount}
           movies
         </div>
 

@@ -1,0 +1,73 @@
+.detailInfo {
+  position: relative;
+
+  display: flex;
+  align-items: flex-start;
+  padding: 10px;
+
+  color: #e6e8e8;
+
+  background: #232c3b;
+}
+
+.detailInfo__poster {
+  width: 100%;
+  max-width: 200px;
+  height: 100%;
+  max-height: 350px;
+  margin-right: 50px;
+}
+
+.detailInfo__title {
+  margin-bottom: 15px;
+
+  font-weight: 700;
+  font-size: 22px;
+  color: #e6e8e8;
+  text-transform: uppercase;
+}
+
+.detailInfo__year {
+  margin-bottom: 15px;
+
+  font-size: 16px;
+}
+
+.detailInfo__divider {
+  margin-right: 15px;
+
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.detailInfo__genres {
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.detailInfo__description {
+  max-width: 400px;
+}
+
+.detailInfo__rating,
+.detailInfo__voteCount {
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.detailInfo__icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  width: 25px;
+  height: 25px;
+
+  cursor: pointer;
+
+  transition: fill 0.3s linear;
+
+  &:hover {
+    fill: darken(white, 50%);
+  }
+}
