@@ -10,25 +10,23 @@
 }
 
 .moviesBar__row {
+  display: flex;
+  align-items: center;
   width: 100%;
 
   &.first {
-    display: flex;
     justify-content: flex-end;
-    align-items: center;
     margin-bottom: 20px;
   }
 
   &.second {
-    display: flex;
     justify-content: space-between;
-    align-items: center;
   }
 }
 
 .moviesBar__title {
-	color: white;
-	font-size: 30px;
+  font-size: 30px;
+  color: white;
 }
 
 .moviesBar .moviesBar__count {
@@ -116,7 +114,8 @@
   display: flex;
   align-items: center;
   width: 170px;
-  margin: 0 20px;
+  margin: 0 5px;
+  padding-left: 0;
 }
 
 .pagination__listPage {

@@ -15,7 +15,6 @@ import styles from "./movies-bar.module.scss";
 
 const MoviesBar = observer(({ history }) => {
   const pages = [];
-  // let pagesCount = history.location.pathname.includes('favorite') ? profile.favoriteList;
 
   createPages(pages, movies.pagesCount, filters.currentPage);
 
