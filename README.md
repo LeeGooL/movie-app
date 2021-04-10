@@ -19,7 +19,7 @@
 ![screenshot](https://raw.github.com/LeeGooL/movie-app/master/src/assets/screenshots/Screenshot_2.png)
 
 Приложение с авторизацией:
-![screenshot](https://raw.github.com/LeeGooL/movie-app/master/src/assets/screenshots/Screenshot_2.png)
+![screenshot](https://raw.github.com/LeeGooL/movie-app/master/src/assets/screenshots/Screenshot_1.png)
 
 ## Используемые технологии
 
