@@ -1,9 +1,11 @@
 # Movie
 
 ## Ссылка для просмотра:
+
 [Live Demo Link](https://movie-app-8b167.web.app/) :point_left:
 
 ## Присутствующий функционал:
+
 - Фильтрация фильмов по году, жанрам и рейтингу
 - Поиск фильмов по названию
 - Сортировка фильмов по популярности, рейтингу, названию
@@ -14,14 +16,14 @@
 ## Скриншоты
 
 Скриншот без авторизации:
-![screenshot](src/assets/screenshots/screenshot_2.png)
+![screenshot](https://raw.github.com/LeeGooL/movie-app/master/src/assets/screenshots/Screenshot_2.png)
 
 Приложение с авторизацией:
-![screenshot](src/assets/screenshots/screenshot_1.png)
+![screenshot](https://raw.github.com/LeeGooL/movie-app/master/src/assets/screenshots/Screenshot_2.png)
 
 ## Используемые технологии
 
-- HTML 
+- HTML
 - SCSS
 - REACT
 - MOBX
@@ -31,8 +33,8 @@
 - ALIAS
 - FIREBASE
 
-
 ### Использование
+
 1. Склонировать / скачать репезиторий.
 2. Подгрузить пакеты (node_modules) одной из двух команд (`npm i` или `yarn`)
 3. Запустить проект (`yarn start` или `npm run start`)
