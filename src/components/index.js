@@ -7,6 +7,5 @@ export { default as MoviesBar } from "./movies-bar";
 export { default as MovieItemLoader } from "./movie-item-loader";
 export { default as MovieItem } from "./movie-item";
 export { default as AuthorizationForm } from "./authorization-form";
-export { default as FavoriteList } from "./favorite-list";
-export { default as WatchLaterList } from "./watch-later-list";
 export { default as MovieDetailInfo } from "./movie-detail-info";
+export { default as ErrorNotification } from "./error-notification";

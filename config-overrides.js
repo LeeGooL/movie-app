@@ -7,6 +7,7 @@ module.exports = function override(config, env) {
 		'@assets': 'src/assets',
 		'@store': 'src/store',
 		'@constants': 'src/constants',
+		'@pages': 'src/pages',
 	})(config);
 
 	return config;

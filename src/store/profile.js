@@ -1,73 +1,46 @@
-import { action, makeAutoObservable } from "mobx";
-import axios from "axios";
-import Cookies from "universal-cookie";
-
-import { API_URL, API_KEY_3 } from "@constants/api";
-
-import authorization from "./authorization";
-import filters from "./filters";
-
-const cookies = new Cookies();
+import { makeAutoObservable } from "mobx";
 
 class Profile {
-  favoriteList = null;
-  watchLaterList = null;
+  favoriteList = [];
+  watchLaterList = [];
+  moviesCount = 0;
+  pagesCount = 0;
+  isLoaded = false;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  fetchFavoriteList() {
-    axios
-      .get(
-        `${API_URL}/account/${authorization.getAccountId()}/favorite/movies`,
-        {
-          params: {
-            api_key: API_KEY_3,
-            session_id:
-              cookies.get("session_id") || authorization.getSessionId(),
-            sort_by: filters.getSortingType(),
-          },
-        }
-      )
-      .then(action(({ data }) => (this.favoriteList = data)));
-  }
+  changeMovieStatusOnList(movie, status, type) {
+    if (type === "favorite") {
+      if (status === true) {
+        this.favoriteList.push(movie);
+        return;
+      }
 
-  fetchWatchLaterList() {
-    axios
-      .get(
-        `${API_URL}/account/${authorization.getAccountId()}/watchlist/movies`,
-        {
-          params: {
-            api_key: API_KEY_3,
-            session_id:
-              cookies.get("session_id") || authorization.getSessionId(),
-            sort_by: filters.getSortingType(),
-          },
-        }
-      )
-      .then(action(({ data }) => (this.watchLaterList = data)));
-  }
+      const index = this.favoriteList.indexOf(movie);
+      const newList = [
+        ...this.favoriteList.slice(0, index),
+        ...this.favoriteList.slice(index + 1),
+      ];
 
-  changeStatusMovie(id, status, type) {
-    axios({
-      method: "POST",
-      url: `${API_URL}/account/${authorization.getAccountId()}/${type}`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      params: {
-        api_key: API_KEY_3,
-        session_id: cookies.get("session_id") || authorization.getSessionId(),
-        media_type: "movie",
-        media_id: id,
-        favorite: status,
-      },
-    }).then(
-      action(({ data }) => {
-        console.log(data);
-      })
-    );
+      this.favoriteList = newList;
+      return;
+    }
+
+    if (status === true) {
+      this.watchLaterList.push(movie);
+      return;
+    }
+
+    const index = this.watchLaterList.indexOf(movie);
+    const newList = [
+      ...this.watchLaterList.slice(0, index),
+      ...this.watchLaterList.slice(index + 1),
+    ];
+
+    this.watchLaterList = newList;
+    return;
   }
 }
 

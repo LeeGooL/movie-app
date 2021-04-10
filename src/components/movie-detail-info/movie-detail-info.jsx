@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Modal } from "antd";
-
 import { observer } from "mobx-react-lite";
 import movies from "@store/movies";
 
@@ -28,7 +26,7 @@ const MovieDetailInfo = observer(() => {
       <img
         className={styles.detailInfo__poster}
         src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-        alt=""
+        alt="poster"
       />
 
       <div className={styles.detailInfo__wrapper}>

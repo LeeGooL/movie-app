@@ -59,128 +59,151 @@ const MoviesBar = observer(({ history }) => {
   return (
     <div className={styles.moviesBar}>
       <div className={`${styles.moviesBar__row} ${styles.first}`}>
+        {history.location.pathname === "/watch-later-list" ? (
+          <h2 className={styles.moviesBar__title}>Watch later movies</h2>
+        ) : history.location.pathname === "/favorite-list" ? (
+          <h2 className={styles.moviesBar__title}>Favorite movies</h2>
+        ) : null}
+
         {authorization.userData ? (
           <div className={styles.moviesBar__lists}>
+            <Link className={styles.moviesBar__favoriteList} to="/">
+              Home
+            </Link>
+
             <Link
               className={styles.moviesBar__watchLaterList}
               to="/watch-later-list"
             >
-              watch later
+              Watch later
             </Link>
+
             <Link
               className={styles.moviesBar__favoriteList}
               to="/favorite-list"
             >
-              favorites
+              Favorites
             </Link>
           </div>
         ) : null}
 
         <div className={styles.moviesBar__count}>
-          {movies.moviesCount === 10000
-            ? `${movies.moviesCount}+`
-            : movies.moviesCount}
+          {history.location.pathname === "/"
+            ? movies.moviesCount === 10000
+              ? `${movies.moviesCount}+ `
+              : `${movies.moviesCount} `
+            : history.location.pathname === "/watch-later-list"
+            ? `${profile.watchLaterList.length} `
+            : history.location.pathname === "/favorite-list"
+            ? `${profile.favoriteList.length} `
+            : null}
           movies
         </div>
 
-        <div className={styles.moviesBar__tags}>
-          {filters.tags.map((tag, index) => {
-            return (
-              <div className={styles.moviesBar__tag} key={index}>
-                {tag}
-                <svg
-                  className={styles.moviesBar__tagIcon}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="white"
-                  width="18px"
-                  height="18px"
-                  onClick={() => removeTag(tag)}
-                >
-                  <path d="M0 0h24v24H0z" fill="none" />
-                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                </svg>
-              </div>
-            );
-          })}
-        </div>
+        {history.location.pathname === "/" ? (
+          <div className={styles.moviesBar__tags}>
+            {filters.tags.map((tag, index) => {
+              return (
+                <div className={styles.moviesBar__tag} key={index}>
+                  {tag}
+                  <svg
+                    className={styles.moviesBar__tagIcon}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="white"
+                    width="18px"
+                    height="18px"
+                    onClick={() => removeTag(tag)}
+                  >
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                  </svg>
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
       </div>
 
-      <div className={`${styles.moviesBar__row} ${styles.second}`}>
-        <div className={styles.moviesBar__pagination}>
-          <button
-            className={`${styles.pagination__button} ${styles.back}`}
-            onClick={() => changeCurrentPage("reduce")}
-            disabled={
-              (filters.currentPage === 1 ? true : false) ||
-              (!movies.isLoaded ? true : false) ||
-              !movies.movies.length
-            }
-          >
-            back
-          </button>
+      {history.location.pathname === "/" ? (
+        <div className={`${styles.moviesBar__row} ${styles.second}`}>
+          <div className={styles.moviesBar__pagination}>
+            <button
+              className={`${styles.pagination__button} ${styles.back}`}
+              onClick={() => changeCurrentPage("reduce")}
+              disabled={
+                (filters.currentPage === 1 ? true : false) ||
+                (!movies.isLoaded ? true : false) ||
+                !movies.movies.length
+              }
+            >
+              back
+            </button>
 
-          <ul className={styles.pagination__list}>
-            {pages &&
-              pages.map((page, index) => {
-                return (
-                  <li
-                    className={classNames(styles.pagination__listPage, {
-                      [`${styles.active}`]: filters.currentPage === page,
-                    })}
-                    key={index}
-                    onClick={() => setCurrentPage(page)}
-                    disabled={!movies.isLoaded ? true : false}
-                  >
-                    {page}
-                  </li>
-                );
-              })}
-          </ul>
+            <ul className={styles.pagination__list}>
+              {pages &&
+                pages.map((page, index) => {
+                  return (
+                    <li
+                      className={classNames(styles.pagination__listPage, {
+                        [`${styles.active}`]: filters.currentPage === page,
+                      })}
+                      key={index}
+                      onClick={() => setCurrentPage(page)}
+                      disabled={!movies.isLoaded ? true : false}
+                    >
+                      {page}
+                    </li>
+                  );
+                })}
+            </ul>
 
-          <button
-            className={`${styles.pagination__button} ${styles.next}`}
-            onClick={() => changeCurrentPage("increase")}
-            disabled={
-              (filters.currentPage === movies.pagesCount ? true : false) ||
-              (!movies.isLoaded ? true : false) ||
-              !movies.movies.length
-            }
-          >
-            next
-          </button>
+            <button
+              className={`${styles.pagination__button} ${styles.next}`}
+              onClick={() => changeCurrentPage("increase")}
+              disabled={
+                (filters.currentPage === movies.pagesCount ? true : false) ||
+                (!movies.isLoaded ? true : false) ||
+                !movies.movies.length
+              }
+            >
+              next
+            </button>
 
-          <div className={styles.pagination__pagesCount}>
-            TotalPages: {movies.pagesCount}
+            <div className={styles.pagination__pagesCount}>
+              TotalPages: {movies.pagesCount}
+            </div>
+          </div>
+
+          <div className={styles.moviesBar__sorting}>
+            <div className={styles.moviesBar__sortingTitle}>sort by:</div>
+
+            <select
+              name=""
+              id=""
+              placeholder="sorting by"
+              className={styles.moviesBar__sortingSelect}
+              onChange={changeSortingType}
+              value={localStorage.getItem("sortingType") || filters.sortingType}
+              disabled={filters.searchValue !== ""}
+            >
+              <option value="popularity.desc">popularity (descending)</option>
+
+              <option value="popularity.asc">popularity (ascending)</option>
+
+              <option value="original_title.asc">name (ascending)</option>
+
+              <option value="original_title.desc">name (descending)</option>
+
+              <option value="vote_average.asc">vote average (ascending)</option>
+
+              <option value="vote_average.desc">
+                vote average (descending)
+              </option>
+            </select>
           </div>
         </div>
-
-        <div className={styles.moviesBar__sorting}>
-          <div className={styles.moviesBar__sortingTitle}>sort by:</div>
-
-          <select
-            name=""
-            id=""
-            placeholder="sorting by"
-            className={styles.moviesBar__sortingSelect}
-            onChange={changeSortingType}
-            value={localStorage.getItem("sortingType") || filters.sortingType}
-            disabled={filters.searchValue !== ""}
-          >
-            <option value="popularity.desc">popularity (descending)</option>
-
-            <option value="popularity.asc">popularity (ascending)</option>
-
-            <option value="original_title.asc">name (ascending)</option>
-
-            <option value="original_title.desc">name (descending)</option>
-
-            <option value="vote_average.asc">vote average (ascending)</option>
-
-            <option value="vote_average.desc">vote average (descending)</option>
-          </select>
-        </div>
-      </div>
+      ) : null}
     </div>
   );
 });

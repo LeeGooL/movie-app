@@ -1,0 +1,13 @@
+.errorNotification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 100%;
+
+  &__text {
+    font-size: 25px;
+    color: white;
+    text-transform: uppercase;
+  }
+}

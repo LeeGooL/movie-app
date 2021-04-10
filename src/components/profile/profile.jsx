@@ -10,6 +10,10 @@ const Profile = observer(() => {
     authorization.setVisibleLoginForm(true);
   };
 
+  const onLogOut = () => {
+    authorization.onLogOut();
+  };
+
   return (
     <div className={styles.profile}>
       {authorization.userData === null ? (
@@ -24,7 +28,9 @@ const Profile = observer(() => {
             alt="avatar"
           />
 
-          <button className={styles.profile__logOutBtn}>Log out</button>
+          <button className={styles.profile__logOutBtn} onClick={onLogOut}>
+            Log out
+          </button>
         </div>
       )}
     </div>

@@ -30,6 +30,13 @@ class Authorization {
     }
   }
 
+  onLogOut() {
+    this.session_id = null;
+    this.userData = null;
+    this.isLoginFormVisible = false;
+    cookies.remove("session_id");
+  }
+
   fetchApi(obj) {
     return new Promise((resolve, reject) => {
       if (obj.method === "POST") {
@@ -106,7 +113,7 @@ class Authorization {
 
       cookies.set("session_id", session_id, {
         path: "/",
-        maxAge: 3600,
+        maxAge: 2678400,
       });
 
       await this.fetchApi({
