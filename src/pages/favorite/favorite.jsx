@@ -18,7 +18,7 @@ const Favorite = observer(({ history }) => {
         </div>
 
         <div className={styles.favorite__movies}>
-          <Movies moviesList={profile.favoriteList} />
+          <Movies moviesList={profile.favoriteList} history={history} />
         </div>
       </div>
 

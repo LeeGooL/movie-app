@@ -18,7 +18,7 @@ const WatchLater = observer(({ history }) => {
         </div>
 
         <div className={styles.watchLater__movies}>
-          <Movies moviesList={profile.watchLaterList} />
+          <Movies moviesList={profile.watchLaterList} history={history} />
         </div>
       </div>
 

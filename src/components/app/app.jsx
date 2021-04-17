@@ -9,6 +9,7 @@ import { observer } from "mobx-react-lite";
 import authorization from "@store/authorization";
 
 import "antd/dist/antd.css";
+import profile from "../../store/profile";
 
 const cookies = new Cookies();
 
@@ -21,6 +22,11 @@ const App = observer(({ history }) => {
         url: `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`,
       });
     }
+
+    profile.setWatchLaterList(
+      JSON.parse(localStorage.getItem("watch-later-list"))
+    );
+    profile.setFavoriteList(JSON.parse(localStorage.getItem("favorite-list")));
   }, []);
 
   return (

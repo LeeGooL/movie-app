@@ -2,12 +2,10 @@ import React from "react";
 
 import styles from "./error-notification.module.scss";
 
-const ErrorNotification = () => {
+const ErrorNotification = ({ label }) => {
   return (
     <div className={styles.errorNotification}>
-      <h2 className={styles.errorNotification__text}>
-        no movies found for your request
-      </h2>
+      <h2 className={styles.errorNotification__text}>{label}</h2>
     </div>
   );
 };

@@ -11,6 +11,11 @@ import styles from "./movie-item.module.scss";
 const MovieItem = observer(({ moviesList }) => {
   const onClickIcon = (movie, status, type) => {
     profile.changeMovieStatusOnList(movie, status, type);
+
+    profile.setWatchLaterList(
+      JSON.parse(localStorage.getItem("watch-later-list"))
+    );
+    profile.setFavoriteList(JSON.parse(localStorage.getItem("favorite-list")));
   };
 
   const handleVisibleMovieDetailInfo = (movie) => {

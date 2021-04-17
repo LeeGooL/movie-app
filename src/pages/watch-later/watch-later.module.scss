@@ -1,11 +1,13 @@
 .watchLater {
-	width: 100%;
-	max-width: 100vw;
-	height: 100%;
-	max-height: 100vh;
-	overflow-y: scroll;
+  width: 100%;
+  max-width: 100vw;
+  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
 
-	&::-webkit-scrollbar {
+  background: #182130;
+
+  &::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
@@ -20,41 +22,35 @@
 }
 
 .watchLater__wrapper {
-	height: 100%;
-	width: 100%;
-}
-
-.watchLater__bar {
-	position: fixed;
-	top: 0;
-	right: 0;
-	left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100vh;
 }
 
 .watchLater__movies {
-	width: 100%;
-	height: 100%;
-	margin-top: 100px;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 100px;
 }
 
 .movieDetailInfo {
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
-	width: 100%;
-	height: 100%;
-
-	background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
 }
 
 .detailInfo {
-	position: absolute;
-	top: 30%;
-	right: 27%;
-	bottom: 30%;
-	left: 27%;
-	z-index: 15;
+  position: absolute;
+  top: 30%;
+  right: 27%;
+  bottom: 30%;
+  left: 27%;
+  z-index: 15;
 }

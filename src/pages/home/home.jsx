@@ -13,12 +13,18 @@ import {
 import { observer } from "mobx-react-lite";
 import authorization from "@store/authorization";
 import movies from "@store/movies";
+import profile from "@store/profile";
 
 import styles from "./home.module.scss";
 
 const Home = observer(({ history }) => {
   React.useEffect(() => {
     movies.fetchMovies();
+
+    profile.setWatchLaterList(
+      JSON.parse(localStorage.getItem("watch-later-list"))
+    );
+    profile.setFavoriteList(JSON.parse(localStorage.getItem("favorite-list")));
   }, []);
 
   return (
